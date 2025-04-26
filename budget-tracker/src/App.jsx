@@ -13,7 +13,11 @@ import { useState } from "react";
 
 function App() {
   // Card Component States
-  const [total, setTotal] = useState(10000);
+  const [total, setTotal] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+
+
   const [budget, setBudget] = useState(2500);
   const [savings, setSavings] = useState(1800);
 
@@ -32,6 +36,10 @@ function App() {
         setSavings,
         formData,
         setFormData,
+        income,
+        setIncome,
+        expense,
+        setExpense
       }}
     >
       <main className="font-sans bg-[#242424]">
