@@ -21,6 +21,10 @@ const Cards = () => {
     setIncome,
     expense,
     setExpense,
+    remainingBudget,
+    setRemainingBudget,
+    budgetPercentage,
+    setBudgetPercentage,
     formData,
   } = useContext(Context);
 
@@ -36,14 +40,20 @@ const Cards = () => {
     let initialBalance = 28000;
     const finalTotal = initialBalance + totalIncome - totalExpense; // Only this difference!
 
+    /* Budget card calculations */
+    let remainingBudgetAmount = budget - totalExpense;
+    let budgetPercent = ((totalExpense / budget) * 100).toFixed(2); // percentange calculation 
+
     setIncome(totalIncome);
     setExpense(totalExpense);
     setTotal(finalTotal);
+    setRemainingBudget(remainingBudgetAmount);
+    setBudgetPercentage(budgetPercent);
 
     console.log("Calculated Total Income:", totalIncome);
     console.log("Calculated Total Expense:", totalExpense);
     console.log("Calculated Final Total:", finalTotal);
-  }, [formData, setIncome, setExpense, setTotal]);
+  }, [formData, setIncome, setExpense, setTotal, setRemainingBudget, budget, remainingBudget, setBudgetPercentage]);
 
   const [isTotalEditing, setIsTotalEditing] = useState(false);
   const [tempTotalValue, settempTotalValue] = useState(total);
@@ -72,8 +82,13 @@ const Cards = () => {
 
   const handleSaveBudget = (event) => {
     if (event.target?.tagName === "BUTTON") return;
-    setBudget(tempBudgetValue);
-    setIsBudgetEditing(false);
+    if(event.target.value > 0 || event.target.value > total) {
+      setBudget(0);
+    }
+    if(event.target.value !== "" && event.target.value > 0 && event.target.value < total) {
+      setBudget(tempBudgetValue);
+      setIsBudgetEditing(false);
+    }
   };
 
   const [isSavingsEditing, setIsSavingsEditing] = useState(false);
@@ -199,8 +214,8 @@ const Cards = () => {
         <div className="w-full bg-gray-200 rounded-full h-2.5">
           <div className="bg-yellow-400 h-2.5 rounded-full"></div>
         </div>
-        <p className="mt-2 opacity-80 text-[14px]">
-          65% of budget used (₹1,625.00 remaining)
+        <p className={`${expense > budget && 'text-red-500'} mt-2 text-[14px] font-semibold`}>
+          {expense > budget ? 'Budget limit exceeded due to too much expenses !' : `${budgetPercentage}% of budget used (₹${remainingBudget} remaining)`}
         </p>
       </div>
 

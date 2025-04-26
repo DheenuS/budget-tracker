@@ -19,7 +19,9 @@ function App() {
 
 
   const [budget, setBudget] = useState(2500);
-  const [savings, setSavings] = useState(1800);
+  let [remainingBudget, setRemainingBudget] = useState(2500);
+  let [budgetPercentage, setBudgetPercentage] = useState(0);
+  const [savings, setSavings] = useState(0);
 
   const [formData, setFormData] = useState([]);
 
@@ -39,7 +41,11 @@ function App() {
         income,
         setIncome,
         expense,
-        setExpense
+        setExpense,
+        remainingBudget,
+        setRemainingBudget,
+        budgetPercentage,
+        setBudgetPercentage
       }}
     >
       <main className="font-sans bg-[#242424]">
