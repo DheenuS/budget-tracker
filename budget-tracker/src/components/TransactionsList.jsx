@@ -58,14 +58,14 @@ const TransactionsList = () => {
       tabAll: (
         <div className="overflow-y-auto custom-scrollbar max-h-[480px] space-y-3">
           {formData.length > 0 ? (
-            formData.map((item) => (
+            formData.map((item, idx) => (
               <div key={item.id} id="transactions-list">
                 <div className="bg-transparent bg-opacity-5 hover:bg-opacity-40 transition duration-300 delay-50 ease-in-out backdrop-filter backdrop-blur-md px-4 py-2 rounded-lg ">
                   <div className="flex justify-between items-center">
                     {editId === item.id ? (
                       <div className="flex flex-col space-y-2 w-full relative">
                         <p className="absolute -right-0 -top-0 rounded-md px-2 py-0.5 bg-white bg-opacity-10 text-gray-300">
-                          Item: {item.id}
+                          Item: {idx + 1}
                         </p>
                         {/* Type */}
                         <div className="flex items-center justify-start py-1.5 px-2 bg-white bg-opacity-10 rounded-md w-fit absolute -left-0 -top-2">
