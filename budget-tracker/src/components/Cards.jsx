@@ -211,11 +211,22 @@ const Cards = () => {
           </div>
           <FontAwesomeIcon icon={faChartPie} className="w-8 h-10" />
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2.5">
-          <div className="bg-yellow-400 h-2.5 rounded-full"></div>
+        <div className="w-full bg-gray-400 bg-opacity-20 rounded-full h-2.5 overflow-hidden">
+          <div
+            className="bg-yellow-400 h-2.5 rounded-full"
+            style={{
+              width: `${Math.min(budgetPercentage, 100)}%`,
+            }}
+          ></div>
         </div>
-        <p className={`${expense > budget && 'text-red-500'} mt-2 text-[14px] font-semibold`}>
-          {expense > budget ? 'Budget limit exceeded due to too much expenses !' : `${budgetPercentage}% of budget used (₹${remainingBudget} remaining)`}
+        <p
+          className={`${
+            expense > budget && "text-red-500"
+          } mt-2 text-[14px] font-semibold`}
+        >
+          {expense > budget
+            ? "Budget limit exceeded due to too much expenses !"
+            : `${budgetPercentage}% of budget used (₹${remainingBudget} remaining)`}
         </p>
       </div>
 
