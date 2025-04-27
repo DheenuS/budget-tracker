@@ -17,12 +17,20 @@ function App() {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
-
   const [budget, setBudget] = useState(2500);
   let [remainingBudget, setRemainingBudget] = useState(2500);
   let [budgetPercentage, setBudgetPercentage] = useState(0);
+
   const [incomeGoal, setIncomeGoal] = useState(200000);
   let [incomeGoalPercentage, setIncomeGoalPercentage] = useState(0);
+
+  const [food, setFood] = useState(0);
+  const [transportation, setTransportation] = useState(0);
+  const [entertainment, setEntertainment] = useState(0);
+  const [shopping, setShopping] = useState(0);
+  const [housing, setHousing] = useState(0);
+  const [utilities, setUtilities] = useState(0);
+  const [health, setHealth] = useState(0);
 
   const [formData, setFormData] = useState([]);
 
@@ -45,10 +53,24 @@ function App() {
         setRemainingBudget,
         budgetPercentage,
         setBudgetPercentage,
-        incomeGoal, 
+        incomeGoal,
         setIncomeGoal,
         incomeGoalPercentage,
-        setIncomeGoalPercentage
+        setIncomeGoalPercentage,
+        food,
+        setFood,
+        transportation,
+        setTransportation,
+        entertainment,
+        setEntertainment,
+        shopping,
+        setShopping,
+        housing,
+        setHousing,
+        utilities,
+        setUtilities,
+        health,
+        setHealth,
       }}
     >
       <main className="font-sans bg-[#242424]">
