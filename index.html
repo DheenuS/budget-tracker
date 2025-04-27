@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="public/assets/icons/budget-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Tracker - Personal Finance Manager</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Initialize Chart
+      document.addEventListener('DOMContentLoaded', () => {
+
+          // Spending Chart
+          const ctx = document.getElementById('spending-chart').getContext('2d');
+          const spendingChart = new Chart(ctx, {
+              type: 'doughnut',
+              data: {
+                  labels: ['Food & Dining', 'Transportation', 'Housing', 'Utilities', 'Entertainment', 'Shopping'],
+                  datasets: [{
+                      data: [320, 120, 1200, 150, 75, 180],
+                      backgroundColor: [
+                          '#EF4444',
+                          '#3B82F6',
+                          '#8B5CF6',
+                          '#10B981',
+                          '#F59E0B',
+                          '#EC4899'
+                      ],
+                      borderWidth: 0
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                      legend: {
+                          position: 'right',
+                      },
+                      tooltip: {
+                          callbacks: {
+                              label: function(context) {
+                                  const label = context.label || '';
+                                  const value = context.raw || 0;
+                                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                  const percentage = Math.round((value / total) * 100);
+                                  return `${label}: $${value} (${percentage}%)`;
+                              }
+                          }
+                      }
+                  },
+                  cutout: '70%'
+              }
+          });
+
+        });
+  </script>
+  </body>
+</html>
