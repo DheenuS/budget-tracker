@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -6,29 +6,43 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Context } from '../context/Context';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const SpendingChart = () => {
-  const data = {
-    labels: ['Food & Dining', 'Transportation', 'Housing', 'Utilities', 'Entertainment', 'Shopping', 'Health'],
-    datasets: [
-      {
-        data: [320, 120, 1200, 150, 75, 180, 50],
-        backgroundColor: [
-          '#EF4444', // red
-          '#3B82F6', // blue
-          '#8B5CF6', // purple
-          '#10B981', // green
-          '#F59E0B', // yellow
-          '#EC4899', // pink
-          '#10B981', // green
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
+  
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [],
+  });
 
+  const {
+    food,
+    transportation,
+    entertainment,
+    shopping,
+    housing,
+    utilities,
+    health,
+  } = useContext(Context);
+
+    useEffect(() => {
+      setChartData({
+        labels: ['Food & Dining', 'Transportation', 'Housing', 'Shopping', 'Entertainment', 'Utilities', 'Health'],
+        datasets: [
+          {
+            data: [food, transportation, housing, shopping, entertainment, utilities, health],
+            backgroundColor: [
+              '#EF4444', '#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EC4899', '#10B981',
+            ],
+            borderWidth: 0,
+          },
+        ],
+      });
+    }, [food, transportation, housing, shopping, entertainment, utilities, health]);
+    
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -52,7 +66,7 @@ const SpendingChart = () => {
             const label = context.label || '';
             const value = context.raw || 0;
             const total = context.dataset.data.reduce((a, b) => a + b, 0);
-            const percentage = Math.round((value / total) * 100);
+            const percentage = total ? Math.round((value / total) * 100) : 0;
             return `${label}: ₹${value} (${percentage}%)`;
           },
         },
@@ -62,7 +76,7 @@ const SpendingChart = () => {
 
   return (
     <div className="w-full h-64 md:h-72 lg:h-80">
-      <Doughnut data={data} options={options} />
+      <Doughnut data={chartData} options={options} />
     </div>
   );
 };

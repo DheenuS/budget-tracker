@@ -32,6 +32,8 @@ function App() {
   const [utilities, setUtilities] = useState(0);
   const [health, setHealth] = useState(0);
 
+  const [dailySpend, setDailySpend] = useState(0);
+
   const [formData, setFormData] = useState([]);
 
   return (
@@ -71,6 +73,8 @@ function App() {
         setUtilities,
         health,
         setHealth,
+        dailySpend,
+        setDailySpend
       }}
     >
       <main className="font-sans bg-[#242424]">
